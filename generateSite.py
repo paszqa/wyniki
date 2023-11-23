@@ -125,6 +125,10 @@ html_template = """
         </table>
     {% endfor %}
 
+<div id="sfcgfrx5pgr8tgdzj1q4cl6gkdt368jhccu"></div>
+<script type="text/javascript" src="https://counter8.optistats.ovh/private/counter.js?c=gfrx5pgr8tgdzj1q4cl6gkdt368jhccu&down=async" async></script>
+<noscript><a href="https://www.freecounterstat.com" title="hit counter"><img src="https://counter8.optistats.ovh/private/freecounterstat.php?c=gfrx5pgr8tgdzj1q4cl6gkdt368jhccu" border="0" title="hit counter" alt="hit counter"></a></noscript>
+
     paszqa.github.io, 2023
 </body>
 </html>
