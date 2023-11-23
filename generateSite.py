@@ -40,7 +40,7 @@ for row in rows:
     nrGlos = row[3]
     partia = row[7]
     glosLink = row[4]
-
+    print("glosLink: "+glosLink)
     czlonkowie = int(row[8]) if row[8] != "-" else 0
     za = int(row[9]) if row[9] != "-" else 0
     przeciw = int(row[10]) if row[10] != "-" else 0
@@ -54,6 +54,7 @@ for row in rows:
         data[date][nrGlos] = {
             'godz': row[5],
             'temat': row[6],
+            'glosLink' : row[4],
             'partie': {}
         }
     
@@ -84,14 +85,14 @@ html_template = """
             Wyniki głosowań Sejmu RP
         </div>
         <div class="mainright">
-            Strona zbiera dane z oficjalnej strony Sejmu RP oraz prezentuje je w przystępny i czytelny sposób. Dane są aktualizowane każdego dnia w nocy. Nie odpowiadam za błędne działanie aplikacji lub niepoprawne dane.
+            Ta strona jest nieoficjalna. Zbiera dane z oficjalnej strony Sejmu RP oraz prezentuje je w przystępny i czytelny sposób. Dane są aktualizowane każdego dnia w nocy. Nie odpowiadam za błędne działanie aplikacji lub niepoprawne dane.
         </div>
     </div>
     {% for date, glosy in data.items()|reverse %}
         <h2>{{ date }}</h2>
         <table border="1">
             <tr>
-                <th>NR GLOS.</th>
+                <th>NR GŁOS.</th>
                 <th>GODZ.</th>
                 <th>TEMAT</th>
                 {% for key, value in glosy.items() %}
@@ -104,7 +105,7 @@ html_template = """
             </tr>
             {% for nrGlos, info in glosy.items() %}
                 <tr>
-                    <td>{{ nrGlos }}</td>
+                    <td><a href="{{ info.glosLink }}">{{ nrGlos }}</a></td>
                     <td>{{ info.godz }}</td>
                     <td>{{ info.temat }}</td>
                     {% for partie, votes in info.partie.items() %}
@@ -113,8 +114,10 @@ html_template = """
                             {{ ((200 * votes.za + (66 * (votes.wstrzymal + votes.nieobecni))) // votes.czlonkowie) + 50}},
                             {{ (122 * (votes.wstrzymal + votes.nieobecni) // votes.czlonkowie) + 50}}
                         );">
-                            <h3>{{ partie }} ({{ votes.czlonkowie }})</h3>
-                            <p>{{ votes.za }} / {{ votes.przeciw }} / {{ votes.wstrzymal }} / {{ votes.nieobecni }}</p>
+                            <div class="divcell">
+                            <div class="up">{{ partie }} ({{ votes.czlonkowie }})</div>
+                            <div class="down">{{ votes.za }} / {{ votes.przeciw }} / {{ votes.wstrzymal }} / {{ votes.nieobecni }}</div>
+                            </div>
                         </td>
                     {% endfor %}
                 </tr>
