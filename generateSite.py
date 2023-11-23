@@ -67,9 +67,9 @@ html_template = """
         <h2>{{ date }}</h2>
         <table border="1">
             <tr>
-                <th>nrGlos</th>
-                <th>godz</th>
-                <th>temat</th>
+                <th>NR GLOS.</th>
+                <th>GODZ.</th>
+                <th>TEMAT</th>
                 {% for key, value in glosy.items() %}
                     {% if key == 'partie' %}
                         {% for party, counts in value.items() %}
@@ -89,8 +89,8 @@ html_template = """
                             {{ ((200 * votes.za + (66 * (votes.wstrzymal + votes.nieobecni))) // votes.czlonkowie) + 50}},
                             {{ (122 * (votes.wstrzymal + votes.nieobecni) // votes.czlonkowie) + 50}}
                         );">
-                            {{ partie }}<br>
-                            {{ votes.za }}/{{ votes.przeciw }}/{{ votes.wstrzymal }}/{{ votes.nieobecni }}
+                            <h3>{{ partie }} ({{ votes.czlonkowie }})</h3>
+                            <p>{{ votes.za }} / {{ votes.przeciw }} / {{ votes.wstrzymal }} / {{ votes.nieobecni }}</p>
                         </td>
                     {% endfor %}
                 </tr>
@@ -106,7 +106,7 @@ template = Template(html_template)
 rendered_html = template.render(data=data)
 
 # Save the generated HTML to a file
-with open('output/index.html', 'w') as file:
+with open('docs/index.html', 'w') as file:
     file.write(rendered_html)
 
 print("HTML file generated successfully.")
