@@ -106,7 +106,7 @@ template = Template(html_template)
 rendered_html = template.render(data=data)
 
 # Save the generated HTML to a file
-with open('index.html', 'w') as file:
+with open('output/index.html', 'w') as file:
     file.write(rendered_html)
 
 print("HTML file generated successfully.")
