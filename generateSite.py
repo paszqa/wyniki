@@ -1,13 +1,22 @@
 import mysql.connector
 from jinja2 import Template
+import configparser
 
 # MySQL database connection configuration
-db_config = {
-    'host': '127.0.0.1',
-    'user': 'loser',
-    'password': 'dupa',
-    'database': 'wyniki'
-}
+def load_db_config(config_file='db.conf'):
+    config = configparser.ConfigParser()
+    config.read(config_file)
+
+    db_config = {
+        'host': config.get('database', 'host'),
+        'user': config.get('database', 'user'),
+        'password': config.get('database', 'password'),
+        'database': config.get('database', 'database')
+    }
+
+    return db_config
+
+db_config = load_db_config()
 
 # Connect to the MySQL database
 conn = mysql.connector.connect(**db_config)
@@ -29,25 +38,32 @@ data = {}
 for row in rows:
     date = row[2].strftime('%Y-%m-%d')  # Format date as needed
     nrGlos = row[3]
-    partia = row[6]
-    
+    partia = row[7]
+    glosLink = row[4]
+
+    czlonkowie = int(row[8]) if row[8] != "-" else 0
+    za = int(row[9]) if row[9] != "-" else 0
+    przeciw = int(row[10]) if row[10] != "-" else 0
+    wstrzymal = int(row[11]) if row[11] != "-" else 0
+    nieobecni = int(row[12]) if row[12] != "-" else 0
+
     if date not in data:
         data[date] = {}
     
     if nrGlos not in data[date]:
         data[date][nrGlos] = {
-            'godz': row[4],
-            'temat': row[5],
+            'godz': row[5],
+            'temat': row[6],
             'partie': {}
         }
     
     if partia not in data[date][nrGlos]['partie']:
         data[date][nrGlos]['partie'][partia] = {
-            'czlonkowie': row[7],
-            'za': row[8],
-            'przeciw': row[9],
-            'wstrzymal': row[10],
-            'nieobecni': row[11]
+            'czlonkowie': row[8],
+            'za': row[9],
+            'przeciw': row[10],
+            'wstrzymal': row[11],
+            'nieobecni': row[12]
         }
 
 
@@ -63,6 +79,14 @@ html_template = """
     <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 <body>
+    <div class="main">
+        <div class="mainleft">
+            Wyniki głosowań Sejmu RP
+        </div>
+        <div class="mainright">
+            Strona zbiera dane z oficjalnej strony Sejmu RP i prezentuje je w przystępny i czytelny sposób. Dane są aktualizowane każdego dnia w nocy. Nie odpowiadam za błędne działanie aplikacji lub niepoprawne dane.
+        </div>
+    </div>
     {% for date, glosy in data.items()|reverse %}
         <h2>{{ date }}</h2>
         <table border="1">

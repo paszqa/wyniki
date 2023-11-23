@@ -44,15 +44,21 @@ def extract_title_info(html_content):
         h1_text = title_content.find('h1').get_text(strip=True)
         elements = h1_text.split()
 
-        if len(elements) >= 8:
+        if len(elements) >= 9:
+            print("Found "+len(elements)+" elements. Continuing")
             nrPos = elements[6].replace('.', '')
             raw_date = elements[3]
 
             # Parse the date from DD-MM-YYYY to YYYY-MM-DD format
             date_object = datetime.strptime(raw_date, '%d-%m-%Y')
             formatted_date = date_object.strftime('%Y-%m-%d')
-
-            return nrPos, formatted_date
+            current_date = datetime.now()
+            if date_object < current_date:
+                print("Date is in the past. Continuing")
+                return nrPos, formatted_date
+            else:
+                print("Date is not in the past. Exiting...")
+                exit()
         else:
             print("Fewer than 8 title elements. Exiting program.")
             exit()
@@ -95,7 +101,7 @@ def extract_second_site_data(link):
         print('No table with class "kluby" found on the second website.')
         return []
 
-def save_to_database(nrGlos, godz, temat, partia, czlonkowie, za, przeciw, wstrzymal, nieobecni, nrPos, date, db_config):
+def save_to_database(nrGlos, glosLink, godz, temat, partia, czlonkowie, za, przeciw, wstrzymal, nieobecni, nrPos, date, db_config):
     connection = None
 
     try:
@@ -110,9 +116,9 @@ def save_to_database(nrGlos, godz, temat, partia, czlonkowie, za, przeciw, wstrz
         cursor = connection.cursor()
 
         cursor.execute('''
-            INSERT INTO sejm (nrGlos, godz, temat, partia, czlonkowie, za, przeciw, wstrzymal, nieobecni, nrPos, date)
-            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
-        ''', (nrGlos, godz, temat, partia, czlonkowie, za, przeciw, wstrzymal, nieobecni, nrPos, date))
+            INSERT INTO sejm (nrGlos, glosLink, godz, temat, partia, czlonkowie, za, przeciw, wstrzymal, nieobecni, nrPos, date)
+            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+        ''', (nrGlos, glosLink, godz, temat, partia, czlonkowie, za, przeciw, wstrzymal, nieobecni, nrPos, date))
 
         connection.commit()
         print('Data saved to the database successfully.')
@@ -154,7 +160,7 @@ def main():
                     wstrzymal = second_site_rows[j + 5].get_text(strip=True)
                     nieobecni = second_site_rows[j + 6].get_text(strip=True)
                     
-                    save_to_database(nrGlos, godz, temat, partia, czlonkowie, za, przeciw, wstrzymal, nieobecni, nrPos, date, db_config)
+                    save_to_database(nrGlos, glosLink, godz, temat, partia, czlonkowie, za, przeciw, wstrzymal, nieobecni, nrPos, date, db_config)
 
             # Increment idDnia and save it back to currentDay.conf
             current_day = str(int(current_day) + 1)
@@ -162,6 +168,8 @@ def main():
                 
         else:
             print('No rows found in the first table.')
+            current_day = str(int(current_day) + 1)
+            write_current_day(current_day)
     else:
         print('Failed to download the first website.')
 

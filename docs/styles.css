@@ -68,4 +68,39 @@ h2 {
 	background-color: #00abe4;
 	width: 30%;
 	color: white;
+	margin-top: 40px
+}
+
+div.main {
+	width: 90%;
+	margin: auto;
+	display: inline-block;
+	height: 70px;
+	padding-bottom: 50px;
+}
+
+div.mainleft{
+	width: 44%;
+	display: inline-block;
+	text-align: right;
+	font-size: 30px;
+	font-weight: 700;
+	padding: 5px;
+	padding-right: 10px;
+	padding-top: 10px;
+	padding-bottom: 20px;
+	margin: 0;
+}
+
+div.mainright{
+	width: 50%;
+	display: inline-block;
+	text-align: left;
+	font-size: 17px;
+	font-weight: 400;
+	padding: 5px;
+	border: 0px solid #222;
+	border-left: 2px solid #1e375a;
+	padding-top: 20px;
+	padding-bottom: 20px;
 }
