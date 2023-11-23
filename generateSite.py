@@ -84,7 +84,7 @@ html_template = """
             Wyniki głosowań Sejmu RP
         </div>
         <div class="mainright">
-            Strona zbiera dane z oficjalnej strony Sejmu RP i prezentuje je w przystępny i czytelny sposób. Dane są aktualizowane każdego dnia w nocy. Nie odpowiadam za błędne działanie aplikacji lub niepoprawne dane.
+            Strona zbiera dane z oficjalnej strony Sejmu RP oraz prezentuje je w przystępny i czytelny sposób. Dane są aktualizowane każdego dnia w nocy. Nie odpowiadam za błędne działanie aplikacji lub niepoprawne dane.
         </div>
     </div>
     {% for date, glosy in data.items()|reverse %}
@@ -121,6 +121,8 @@ html_template = """
             {% endfor %}
         </table>
     {% endfor %}
+
+    paszqa.github.io, 2023
 </body>
 </html>
 """
