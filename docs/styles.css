@@ -1,8 +1,10 @@
 
 body {
     font-family: Arial, sans-serif;
-    background-color: #676;
+	background: rgb(233,241,251);
+	background: linear-gradient(90deg, rgba(233,241,251,1) 18%, rgba(220,235,255,1) 67%);
 	font-size: 10px;
+	color: #1e375a;
 }
 
 table {
@@ -26,9 +28,10 @@ th, td {
 
 tr {
 	background-color: none;
+	border-radius: 10px;
 }
 tr:hover {
-	background-color: #9a9;
+	background-color: #74d3f3;
 }
 
 /* Apply specific widths to table columns */
@@ -44,7 +47,7 @@ table td:nth-child(2) {
 
 table th:nth-child(3),
 table td:nth-child(3) {
-    width: 40%;
+    width: 30%;
 	font-weight: 700;
 }
 
@@ -52,4 +55,17 @@ table td:nth-child(3) {
 table th:not(:nth-child(1)):not(:nth-child(2)):not(:nth-child(3)),
 table td:not(:nth-child(1)):not(:nth-child(2)):not(:nth-child(3)) {
     width: 6%;
+	font-weight: 600;
+}
+
+h2 {
+	text-align: center;
+	margin: auto;
+	font-size: 20px;
+	font-weight: 700;
+	padding: 10px;
+	border-radius: 10px;
+	background-color: #00abe4;
+	width: 30%;
+	color: white;
 }
