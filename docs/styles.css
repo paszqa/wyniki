@@ -1,0 +1,55 @@
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #676;
+	font-size: 10px;
+}
+
+table {
+    width: 90%;
+    border-collapse: separate;
+    border-spacing: 0 8px; /* Adjust the vertical spacing as needed */
+	text-align: center;
+	margin: auto;
+    border: 0px solid #dddddd;
+}
+
+th, td {
+	margin-top: 5px;
+    padding: 5px;
+    border: 0px solid #dddddd;
+	text-align: center;
+	border-radius: 10px;
+	font-size: 12px;
+	margin-top: 5px;
+}
+
+tr {
+	background-color: none;
+}
+tr:hover {
+	background-color: #9a9;
+}
+
+/* Apply specific widths to table columns */
+table th:nth-child(1),
+table td:nth-child(1) {
+    width: 4%;
+}
+
+table th:nth-child(2),
+table td:nth-child(2) {
+    width: 5%;
+}
+
+table th:nth-child(3),
+table td:nth-child(3) {
+    width: 40%;
+	font-weight: 700;
+}
+
+/* Apply a common width to the remaining columns */
+table th:not(:nth-child(1)):not(:nth-child(2)):not(:nth-child(3)),
+table td:not(:nth-child(1)):not(:nth-child(2)):not(:nth-child(3)) {
+    width: 6%;
+}
