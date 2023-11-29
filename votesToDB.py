@@ -45,7 +45,7 @@ def extract_title_info(html_content):
         elements = h1_text.split()
 
         if len(elements) >= 9:
-            print("Found "+len(elements)+" elements. Continuing")
+            print("Found "+str(len(elements))+" elements. Continuing")
             nrPos = elements[6].replace('.', '')
             raw_date = elements[3]
 
