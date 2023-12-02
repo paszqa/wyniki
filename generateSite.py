@@ -68,7 +68,8 @@ for row in rows:
             'nieobecni': row[12]
         }
 
-today = datetime.datetime.now()
+today = str(datetime.datetime.now().strftime('%Y-%m-%d %H:%M'))
+print("Today's date: "+today)
 
 
 
@@ -86,7 +87,7 @@ html_template = """
             Wyniki głosowań Sejmu RP
         </div>
         <div class="mainright">
-            Ta strona jest nieoficjalna. Zbiera dane z oficjalnej strony Sejmu RP oraz prezentuje je w przystępny i czytelny sposób. Dane są aktualizowane każdego dnia w nocy. Nie odpowiadam za błędne działanie aplikacji lub niepoprawne dane. Ostatnia aktualizacja: {% today %}
+            Ta strona jest nieoficjalna. Zbiera dane z oficjalnej strony Sejmu RP oraz prezentuje je w przystępny i czytelny sposób. Dane są aktualizowane każdego dnia w nocy. Nie odpowiadam za błędne działanie aplikacji lub niepoprawne dane. Ostatnia aktualizacja: {{ today }}
         </div>
     </div>
     {% for date, glosy in data.items()|reverse %}
@@ -137,7 +138,7 @@ html_template = """
 
 # Render the HTML using Jinja2 template
 template = Template(html_template)
-rendered_html = template.render(data=data)
+rendered_html = template.render(data=data, today=today)
 
 # Save the generated HTML to a file
 with open('docs/index.html', 'w') as file:
