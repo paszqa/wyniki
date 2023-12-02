@@ -1,6 +1,7 @@
 import mysql.connector
 from jinja2 import Template
 import configparser
+import datetime
 
 # MySQL database connection configuration
 def load_db_config(config_file='db.conf'):
@@ -67,7 +68,7 @@ for row in rows:
             'nieobecni': row[12]
         }
 
-
+today = datetime.datetime.now()
 
 
 
@@ -85,7 +86,7 @@ html_template = """
             Wyniki głosowań Sejmu RP
         </div>
         <div class="mainright">
-            Ta strona jest nieoficjalna. Zbiera dane z oficjalnej strony Sejmu RP oraz prezentuje je w przystępny i czytelny sposób. Dane są aktualizowane każdego dnia w nocy. Nie odpowiadam za błędne działanie aplikacji lub niepoprawne dane.
+            Ta strona jest nieoficjalna. Zbiera dane z oficjalnej strony Sejmu RP oraz prezentuje je w przystępny i czytelny sposób. Dane są aktualizowane każdego dnia w nocy. Nie odpowiadam za błędne działanie aplikacji lub niepoprawne dane. Ostatnia aktualizacja: {% today %}
         </div>
     </div>
     {% for date, glosy in data.items()|reverse %}
