@@ -55,4 +55,4 @@ python3 votesToDB.py
 python3 generateSite.py
 ```
 
-6. The result is saved to sejm_data.html
+6. The result is saved to docs/index.html
