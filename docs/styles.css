@@ -131,3 +131,7 @@ div.mainright{
 	padding-top: 20px;
 	padding-bottom: 20px;
 }
+
+span.legend{
+	border-radius: 5px;
+	background: rgb(33,231,51);
